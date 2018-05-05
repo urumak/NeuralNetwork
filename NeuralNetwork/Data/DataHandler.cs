@@ -14,15 +14,18 @@ namespace NeuralNetwork.Data
         List<List<string>> splittedList = new List<List<string>>();
         List<float> target = new List<float>();
         List<string> helpList = new List<string>();
+        string filename;
 
-        public void PrepareData()
+        public DataHandler (string filename)
         {
+            this.filename = filename;
             Read();
             RemoveSeparator();
-            ChangeToFloat();
+            ConvertToFloat();
             Normalizer norm = new Normalizer();
             input = norm.Normalize(input);
         }
+
 
         public List<List<float>> GetInput()
         {
@@ -38,7 +41,7 @@ namespace NeuralNetwork.Data
         {
             try
             {
-                using (StreamReader sr = new StreamReader("pima-indians-diabetes.data"))
+                using (StreamReader sr = new StreamReader(filename))
                 {
                     while (!sr.EndOfStream)
                     {
@@ -64,7 +67,7 @@ namespace NeuralNetwork.Data
             }
         }
 
-        private void ChangeToFloat()
+        private void ConvertToFloat()
         {
             for (int i = 0; i < splittedList.Count; i++)
             {

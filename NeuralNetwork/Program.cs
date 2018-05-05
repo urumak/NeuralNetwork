@@ -12,8 +12,7 @@ namespace NeuralNetwork
         static void Main(string[] args)
         {
             List<List<float>> input = new List<List<float>>();
-            DataHandler handler = new DataHandler();
-            handler.PrepareData();
+            DataHandler handler = new DataHandler("pima-indians-diabetes.data");
             input = handler.GetInput();
             int i = 1;
             foreach (List<float> list in input)
