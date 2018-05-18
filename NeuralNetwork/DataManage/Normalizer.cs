@@ -25,7 +25,13 @@ namespace NeuralNetwork.Data
                     //float norm = ((number - list.Min()) / (list.Max() - list.Min()))
                     temp.Add(norm);
                 }
+                Console.WriteLine("{0}, {1}", list.Max(), list.Min());
                 normalizedList.Add(temp);
+            }
+            for (int i = 0; i< normalizedList.Count; i++)
+            {
+                Console.Write(normalizedList[i].Min());
+                Console.WriteLine(normalizedList[i].Max());
             }
             normalizedList = Transpose(normalizedList);
             return normalizedList;

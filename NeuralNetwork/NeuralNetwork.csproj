@@ -42,8 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\DataHandler.cs" />
-    <Compile Include="Data\Normalizer.cs" />
+    <Compile Include="DataManage\DataHandler.cs" />
+    <Compile Include="DataManage\Normalizer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -21,9 +21,11 @@ namespace NeuralNetwork.Data
             this.filename = filename;
             Read();
             RemoveSeparator();
+            splittedList = DeleteUselessData();
             ConvertToFloat();
             Normalizer norm = new Normalizer();
             input = norm.Normalize(input);
+            ExportToTxt();
         }
 
 
@@ -56,6 +58,27 @@ namespace NeuralNetwork.Data
             }
         }
 
+        private void ExportToTxt()
+        {
+            using (StreamWriter writer = new StreamWriter(@"C:\Users\13cru\source\repos\data.txt"))
+            {
+                foreach (List<string> list in splittedList)
+                {
+                    string temp = null;
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        temp += list[i];
+                        if (i != list.Count - 1)
+                        {
+                            temp += ',';
+                        }
+                    }
+                    writer.WriteLine(temp);
+                }
+                writer.Close();
+            }
+        }
+
         private void RemoveSeparator()
         {
             foreach (string line in helpList)
@@ -82,6 +105,20 @@ namespace NeuralNetwork.Data
                 target.Add(float.Parse(splittedList[i][j], CultureInfo.InvariantCulture));
                 input.Add(temp);
             }
+        }
+
+        private List<List<string>> DeleteUselessData()
+        {
+            List<List<string>> newList = new List<List<string>>();
+            foreach(List<string> list in splittedList)
+            {
+                if (list[2] == "0" || list[3] == "0" || list[5] == "0" || list[5] == "0.0" || list[7] == "0")
+                {
+                    continue;
+                }
+                newList.Add(list);
+            }
+            return newList;
         }
     }
 }
