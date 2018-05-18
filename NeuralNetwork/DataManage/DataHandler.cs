@@ -12,7 +12,7 @@ namespace NeuralNetwork.Data
     {
         List<List<float>> input = new List<List<float>>();
         List<List<string>> splittedList = new List<List<string>>();
-        List<float> target = new List<float>();
+        List<List<float>> target = new List<List<float>>();
         List<string> helpList = new List<string>();
         string filename;
 
@@ -25,7 +25,8 @@ namespace NeuralNetwork.Data
             ConvertToFloat();
             Normalizer norm = new Normalizer();
             input = norm.Normalize(input);
-            ExportToTxt();
+            target = norm.Normalize(target);
+            //ExportToTxt();
         }
 
 
@@ -34,7 +35,7 @@ namespace NeuralNetwork.Data
             return input;
         }
 
-        public List<float> GetTarget()
+        public List<List<float>> GetTarget()
         {
             return target;
         }
@@ -102,7 +103,9 @@ namespace NeuralNetwork.Data
                     number = float.Parse(splittedList[i][j], CultureInfo.InvariantCulture);
                     temp.Add(number);
                 }
-                target.Add(float.Parse(splittedList[i][j], CultureInfo.InvariantCulture));
+                List<float> targetTemp = new List<float>();
+                targetTemp.Add(float.Parse(splittedList[i][j], CultureInfo.InvariantCulture));
+                target.Add(targetTemp);
                 input.Add(temp);
             }
         }

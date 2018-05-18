@@ -42,8 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm\BackPropagation.cs" />
     <Compile Include="DataManage\DataHandler.cs" />
     <Compile Include="DataManage\Normalizer.cs" />
+    <Compile Include="Models\Layer.cs" />
+    <Compile Include="Models\Neuron.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
