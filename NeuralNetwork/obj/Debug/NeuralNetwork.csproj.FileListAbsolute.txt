@@ -10,10 +10,8 @@ C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.dll
 C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Genetic.dll
 C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Math.Core.dll
 C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Math.dll
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Neuro.dll
 C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.xml
 C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Genetic.xml
 C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Math.xml
 C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Math.Core.xml
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Neuro.xml
 C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.csproj.CopyComplete
