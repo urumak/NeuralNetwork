@@ -8,5 +8,9 @@ namespace NeuralNetwork.Models
 {
     class Neuron
     {
+        public void CalculateError()
+        {
+
+        }
     }
 }

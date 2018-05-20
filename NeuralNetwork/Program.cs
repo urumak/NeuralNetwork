@@ -16,18 +16,40 @@ namespace NeuralNetwork
             DataHandler handler = new DataHandler("pima-indians-diabetes.data");
             input = handler.GetInput();
             target = handler.GetTarget();
-            int i = 0;
-            foreach (List<float> list in input)
+
+            Network net = new Network(new int[] { 8, 30, 40,1}, 0.033f);
+
+            for (int i = 0; i < 5000; i++)
             {
-                Console.Write("{0}. ", i + 1);
-                foreach (float number in list)
+                for (int j = 0; j < 400; j++)
                 {
-                    Console.Write("{0} ", number);
+                    net.StartFeedForward(input[j].ToArray());
+                    net.BackPropagation(target[j].ToArray());
                 }
-                Console.Write("  {0}", target[i][0]);
-                Console.WriteLine();
-                i++;
+                if(i % 100 == 0)
+                {
+                    float procent = (((float)i + 1) / 5000) * 100;
+                    Console.WriteLine(procent);
+                }
             }
+
+            float good = 0;
+            float wrong = 0;
+
+            for (int i = 400; i < input.Count; i++)
+            {
+                if (Math.Abs(net.StartFeedForward(input[i].ToArray())[0] - target[i][0]) < 0.1f)
+                {
+                    good++;
+                }
+                else
+                {
+                    wrong++;
+                }
+            }
+            float procentnauczenia = (good / (good + wrong)) * 100;
+            Console.WriteLine(procentnauczenia);
+
             Console.ReadLine();
         }
     }
