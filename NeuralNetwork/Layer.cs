@@ -10,41 +10,46 @@ namespace NeuralNetwork
     {
         int inputsNum; //liczba neuronów w poprzedniej warstwie
         int outputsNum; //liczba neuronów w bieżącej warstwie
-
+        float learningRate; //współczynnik uczenia teta
+        float alpha; //współczynnik alfa dla momentum
 
         public float[] outputs; //wyjscia bieżącej warstwy
         public float[] inputs; //wejścia dla bieżącej warstwy
         public float[,] weights; //wagi dla bieżącej warstwy
-        public float[,] correction; //poprawki dla wag w bieżącej warstwie
+        public float[,] corrections; //poprawki dla wag w bieżącej warstwie
         public float[] delta; //delta dla bieżącej warstwy
         public float[] error; //błąd, tylko dla warstwy wyjściowej
+        public float[,] previousWeights; //wagi z poprzedniego kroku
 
-        public static Random random = new Random();
+        public static Random random = new Random(); //instancja klasy generującej pseudolosowe liczby
 
-        public Layer(int inputsNum, int outputsNum) //konstruktor przyjmuje liczbę wejść i wyjść dla bieżącej warstwy
+        public Layer(int inputsNum, int outputsNum, float learningRate, float alpha) //konstruktor przyjmuje liczbę wejść i wyjść dla bieżącej warstwy
         {
             this.inputsNum = inputsNum;
             this.outputsNum = outputsNum;
+            this.alpha = alpha;
+            this.learningRate = learningRate;
 
             //ustawienie odpowiedniach rozmiarów tablic
             outputs = new float[outputsNum];
             inputs = new float[inputsNum];
             weights = new float[outputsNum, inputsNum];
-            correction = new float[outputsNum, inputsNum];
+            corrections = new float[outputsNum, inputsNum];
             delta = new float[outputsNum];
             error = new float[outputsNum];
-
+            previousWeights = new float[outputsNum, inputsNum];
             InitilizeWeights(); //zainicjowanie wag
         }
 
-
+        //inicjalizacja wag
         public void InitilizeWeights()
         {
             for (int i = 0; i < outputsNum; i++)
             {
                 for (int j = 0; j < inputsNum; j++)
                 {
-                    weights[i, j] = (float)random.NextDouble() - 0.5f; //losowe wagi poczatkowe
+                    weights[i, j] = (float)random.NextDouble() - 0.5f; //losowe wagi początkowe
+                    previousWeights[i, j] = weights[i, j]; //różnica miedzy wagami w pierwszej a poprzedniej iteracji będzie zerowa, nie mam wag z poprzedniej iteracji, bo jej nie było 
                 }
             }
         }
@@ -90,22 +95,22 @@ namespace NeuralNetwork
             {
                 for (int j = 0; j < inputsNum; j++)
                 {
-                    correction[i, j] = delta[i] * inputs[j];
+                    corrections[i, j] = delta[i] * inputs[j];
                 }
             }
         }
 
         //algorytm wsteczej propagacji błędu dla warstw ukrytych
-        public void BackPropHidden(float[] gammaForward, float[,] weightsFoward)
+        public void BackPropHidden(float[] deltaForward, float[,] weightsFoward)
         {
-            //obliczenie parametró delta
+            //obliczenie parametrów delta
             for (int i = 0; i < outputsNum; i++)
             {
                 delta[i] = 0;
 
-                for (int j = 0; j < gammaForward.Length; j++)
+                for (int j = 0; j < deltaForward.Length; j++)
                 {
-                    delta[i] += gammaForward[j] * weightsFoward[j, i];
+                    delta[i] += deltaForward[j] * weightsFoward[j, i];
                 }
 
                 delta[i] *= TanhDerivative(outputs[i]);
@@ -116,7 +121,7 @@ namespace NeuralNetwork
             {
                 for (int j = 0; j < inputsNum; j++)
                 {
-                    correction[i, j] = delta[i] * inputs[j];
+                    corrections[i, j] = delta[i] * inputs[j];
                 }
             }
         }
@@ -129,7 +134,14 @@ namespace NeuralNetwork
             {
                 for (int j = 0; j < inputsNum; j++)
                 {
-                    weights[i, j] -= correction[i, j] *2* 0.033f; // 0.033f to bedzie learningRate
+                    weights[i, j] -= corrections[i, j] *learningRate + alpha * (weights[i, j] - previousWeights[i, j]); // 0.033f to będzie learningRate
+                }
+            }
+            for (int i = 0; i < outputsNum; i++)
+            {
+                for (int j = 0; j < inputsNum; j++)
+                {
+                    previousWeights[i, j] = weights[i, j]; //zapamiętuję poprzednie wagi dla warstwy
                 }
             }
         }

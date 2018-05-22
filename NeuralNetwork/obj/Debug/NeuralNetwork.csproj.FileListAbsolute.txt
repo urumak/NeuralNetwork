@@ -5,13 +5,3 @@ c:\users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\NeuralNetwork.
 c:\users\13cru\source\repos\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.exe
 c:\users\13cru\source\repos\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.pdb
 C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.csprojResolveAssemblyReference.cache
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.dll.config
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.dll
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Genetic.dll
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Math.Core.dll
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Math.dll
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.xml
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Genetic.xml
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Math.xml
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\bin\Debug\Accord.Math.Core.xml
-C:\Users\13cru\source\repos\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.csproj.CopyComplete

@@ -11,18 +11,22 @@ namespace NeuralNetwork
         int[] layersSize; //ilosc neuronów w kolejnych warstwach
         Layer[] layers; //lista warstw w sieci
         float learningRate; //współczynnik uczenia teta
+        float alpha; //współczynnik alfa dla momentum
 
-        public Network(int[] layersSize, float learningRate)
+        public Network(int[] layersSize, float learningRate, float alpha)
         {
             this.layersSize = new int[layersSize.Length];
+            this.alpha = alpha;
+            this.learningRate = learningRate;
+
             for (int i = 0; i < layersSize.Length; i++)
                 this.layersSize[i] = layersSize[i];
-            this.learningRate = learningRate;
+
             layers = new Layer[layersSize.Length - 1];
 
             for (int i = 0; i < layers.Length; i++)
             {
-                layers[i] = new Layer(layersSize[i], layersSize[i + 1]); //tutaj wywołuje konstruktor z parametrami które określają ilosć wejsć i wyjść w danej warstwie
+                layers[i] = new Layer(layersSize[i], layersSize[i + 1], learningRate, alpha); //tutaj wywołuję konstruktor z parametrami które określają ilosć wejsć i wyjść w danej warstwie
             }
         }
 
@@ -49,12 +53,14 @@ namespace NeuralNetwork
                 {
                     layers[i].BackPropOutput(target);
                 }
+                //jeśli mamy do czynienia z warstwą ukrytą
                 else
                 {
                     layers[i].BackPropHidden(layers[i + 1].delta, layers[i + 1].weights);
                 }
             }
 
+            //aktualizacja wag
             for (int i = 0; i < layers.Length; i++)
             {
                 layers[i].UpdateWeights();

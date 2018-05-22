@@ -1,6 +1,7 @@
 ﻿using NeuralNetwork.Data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,19 +18,20 @@ namespace NeuralNetwork
             input = handler.GetInput();
             target = handler.GetTarget();
 
-            Network net = new Network(new int[] { 8, 30, 40,1}, 0.033f);
 
-            for (int i = 0; i < 5000; i++)
+            Network net = new Network(new int[] { 8, 45, 38, 1 }, 0.066f, 0.2f);
+
+            for (int i = 0; i < 1000; i++)
             {
                 for (int j = 0; j < 400; j++)
                 {
                     net.StartFeedForward(input[j].ToArray());
                     net.BackPropagation(target[j].ToArray());
                 }
-                if(i % 100 == 0)
+                if (i % 100 == 0)
                 {
-                    float procent = (((float)i + 1) / 5000) * 100;
-                    Console.WriteLine(procent);
+                    float procent = (((float)i* + 1) / 1000) * 100;
+                    Console.WriteLine("procent {0}", procent);
                 }
             }
 
@@ -49,6 +51,11 @@ namespace NeuralNetwork
             }
             float procentnauczenia = (good / (good + wrong)) * 100;
             Console.WriteLine(procentnauczenia);
+            /*using (StreamWriter writer = new StreamWriter(@"C:\Users\13cru\source\repos\wyniki5.txt", true))
+            {
+                writer.WriteLine(n + " : " + n2 + " : " + procentnauczenia);
+                writer.Close();
+            }*/
 
             Console.ReadLine();
         }
