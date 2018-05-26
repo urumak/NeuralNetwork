@@ -25,7 +25,7 @@ namespace NeuralNetwork.Data
             ConvertToFloat();
             Normalizer norm = new Normalizer();
             input = norm.Normalize(input);
-            target = norm.Normalize(target);
+            //target = norm.Normalize(target);
             //ExportToTxt();
         }
 

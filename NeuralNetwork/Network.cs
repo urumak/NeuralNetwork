@@ -9,7 +9,7 @@ namespace NeuralNetwork
     public class Network
     {
         int[] layersSize; //ilosc neuronów w kolejnych warstwach
-        Layer[] layers; //lista warstw w sieci
+        Layer[] layers; //tablica warstw w sieci
         float learningRate; //współczynnik uczenia teta
         float alpha; //współczynnik alfa dla momentum
 
@@ -35,10 +35,11 @@ namespace NeuralNetwork
         public float[] StartFeedForward(float[] inputs)
         {
             layers[0].FeedForward(inputs);
-            for (int i = 1; i < layers.Length; i++)
+            for (int i = 1; i < layers.Length - 1; i++)
             {
                 layers[i].FeedForward(layers[i - 1].outputs);
             }
+            layers[layers.Length - 1].FeedForward(layers[layers.Length - 2].outputs, true);
             return layers[layers.Length - 1].outputs;
         }
 
@@ -59,11 +60,18 @@ namespace NeuralNetwork
                     layers[i].BackPropHidden(layers[i + 1].delta, layers[i + 1].weights);
                 }
             }
-
             //aktualizacja wag
             for (int i = 0; i < layers.Length; i++)
             {
                 layers[i].UpdateWeights();
+            }
+        }
+
+        public void ChangeLearningRate(float learningRate)
+        {
+            foreach(Layer layer in layers)
+            {
+                layer.ChangeLearningRate(learningRate);
             }
         }
        
