@@ -68,7 +68,7 @@ namespace NeuralNetwork
             for (int i = 0; i < outputsNum; i++)
             {
                 outputs[i] = 0;
-                //pętla licząca sumę wag, pomnożonych przez wagi
+                //pętla licząca sumę wejść, pomnożonych przez wagi
                 for (int j = 0; j < inputsNum; j++)
                 {
                     outputs[i] += inputs[j] * weights[i, j];
@@ -77,9 +77,10 @@ namespace NeuralNetwork
                 if(!last)
                 {
                     outputs[i] = (float)Math.Tanh(outputs[i]); //zastosowanie funkcji aktywacji(tangens hiperboliczny)
+                    // nie robie tego, jeśli mam do czynienia z ostatnia warstwą, gdzie przyjmuję liniową funkcję aktywacji y = x
                 }
             }
-            return outputs; //zwrócenie tablicy wyjść, które będą wejsciami dla kolejnej warstwy
+            return outputs; //zwrócenie tablicy wyjść
         }
 
         //funkcja obliczająca wartość pochodznej tangensa hiperbolicznego
@@ -94,17 +95,14 @@ namespace NeuralNetwork
             //obliczenie wartości błędu dla każdego z wyjść
             for (int i = 0; i < outputsNum; i++)
                 error[i] = outputs[i] - target[i]; //błąd obliczam jako różnicę między tym co powinno byc na wyjściu a co jest
-
-            //obliczenie parametru delta dla każdego z wyjść
-            for (int i = 0; i < outputsNum; i++)
-                delta[i] = error[i];
+            //neuron wyjściowy jest neuronem liniowym, nie mnożę go przez pochodną funkcji aktywacji, ponieważ wynosi ona 1
 
             //obliczenie poprawek wag dla wejść
             for (int i = 0; i < outputsNum; i++)
             {
                 for (int j = 0; j < inputsNum; j++)
                 {
-                    corrections[i, j] = delta[i] * inputs[j];
+                    corrections[i, j] = error[i] * inputs[j];
                 }
             }
         }

@@ -21,7 +21,7 @@ namespace NeuralNetwork.Data
             this.filename = filename;
             Read();
             RemoveSeparator();
-            splittedList = DeleteUselessData();
+            //splittedList = DeleteUselessData();
             ConvertToFloat();
             Normalizer norm = new Normalizer();
             input = norm.Normalize(input);

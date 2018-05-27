@@ -74,6 +74,5 @@ namespace NeuralNetwork
                 layer.ChangeLearningRate(learningRate);
             }
         }
-       
     }
 }
