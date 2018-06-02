@@ -15,7 +15,6 @@ namespace NeuralNetwork
             DataHandler handler = new DataHandler("pima-indians-diabetes.data");
             NetworkTester tester = new NetworkTester(handler.GetInput(), handler.GetTarget());
             tester.Experiment();
-            Console.ReadLine();
         }
     }
 }

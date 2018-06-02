@@ -83,7 +83,8 @@ namespace NeuralNetwork
             return outputs; //zwrócenie tablicy wyjść
         }
 
-        //funkcja obliczająca wartość pochodznej tangensa hiperbolicznego
+        //funkcja obliczająca wartość pochodnej tangensa hiperbolicznego
+        //jako parametr trzeba podać f(n) czyli y (output)
         float TanhDerivative(float value)
         {
             return 1 - (value * value);
@@ -96,13 +97,15 @@ namespace NeuralNetwork
             for (int i = 0; i < outputsNum; i++)
                 error[i] = outputs[i] - target[i]; //błąd obliczam jako różnicę między tym co powinno byc na wyjściu a co jest
             //neuron wyjściowy jest neuronem liniowym, nie mnożę go przez pochodną funkcji aktywacji, ponieważ wynosi ona 1
+            for (int i = 0; i < outputsNum; i++)
+                delta[i] = error[i]; //delta przyda się w później
 
             //obliczenie poprawek wag dla wejść
             for (int i = 0; i < outputsNum; i++)
             {
                 for (int j = 0; j < inputsNum; j++)
                 {
-                    corrections[i, j] = error[i] * inputs[j];
+                    corrections[i, j] = delta[i] * inputs[j];
                 }
             }
         }
@@ -117,7 +120,7 @@ namespace NeuralNetwork
 
                 for (int j = 0; j < deltaForward.Length; j++)
                 {
-                    delta[i] += deltaForward[j] * weightsFoward[j, i];
+                    delta[i] += deltaForward[j] * weightsFoward[j, i]; //jest j wag dla i - tego neuronu
                 }
 
                 delta[i] *= TanhDerivative(outputs[i]);
