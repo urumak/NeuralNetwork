@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NeuralNetwork.Data
 {
@@ -21,12 +19,9 @@ namespace NeuralNetwork.Data
             this.filename = filename;
             Read();
             RemoveSeparator();
-            //splittedList = DeleteUselessData();
             ConvertToFloat();
             Normalizer norm = new Normalizer();
             input = norm.Normalize(input);
-            //target = norm.Normalize(target);
-            //ExportToTxt();
         }
 
 
@@ -61,7 +56,7 @@ namespace NeuralNetwork.Data
 
         private void ExportToTxt()
         {
-            using (StreamWriter writer = new StreamWriter(@"C:\Users\13cru\source\repos\data.txt"))
+            using (StreamWriter writer = new StreamWriter("data.txt"))
             {
                 foreach (List<string> list in splittedList)
                 {
@@ -115,13 +110,54 @@ namespace NeuralNetwork.Data
             List<List<string>> newList = new List<List<string>>();
             foreach(List<string> list in splittedList)
             {
-                if (list[2] == "0" || list[3] == "0" || list[5] == "0" || list[5] == "0.0" || list[7] == "0")
+                if (list[1] == "0" || list[2] == "0" || list[3] == "0" || list[4] == "0" || list[5] == "0" || list[5] == "0.0" || list[6] == "0" || list[7] == "0")
                 {
                     continue;
                 }
                 newList.Add(list);
             }
             return newList;
+        }
+        private void CountNum()
+        {
+            int one = 0;
+            int zero = 0;
+            int onet = 0;
+            int zerot = 0;
+            int i = 0;
+            int all = 0;
+            int allt = 0;
+            List<List<string>> newList = new List<List<string>>();
+            foreach (List<float> list in target)
+            {
+                if (i % 3 != 0)
+                {
+                    if (list[0] == 1)
+                    {
+                        one++;
+                    }
+                    else
+                    {
+                        zero++;
+                    }
+                    all++;
+                }
+                else
+                {
+                    if (list[0] == 1)
+                    {
+                        onet++;
+                    }
+                    else
+                    {
+                        zerot++;
+                    }
+                    allt++;
+                }
+                i++;
+            }
+            Console.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}", one, zero, onet, zerot, all, allt);
+            Console.ReadLine();
         }
     }
 }

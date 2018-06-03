@@ -84,7 +84,7 @@ namespace NeuralNetwork
         }
 
         //funkcja obliczająca wartość pochodnej tangensa hiperbolicznego
-        //jako parametr trzeba podać f(n) czyli y (output)
+        //jako parametr trzeba podać f(n) czyli y (to jest output)
         float TanhDerivative(float value)
         {
             return 1 - (value * value);
